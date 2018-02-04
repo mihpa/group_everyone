@@ -5,6 +5,7 @@ namespace OCA\group_everyone;
 class GROUP_EVERY implements \OCP\GroupInterface {
     const GroupName = "Everyone";
 
+    public function isVisibleForScope($scope) { return true; }
     public function implementsActions($actions) { return ($actions === \OC_Group_Backend::COUNT_USERS); }
     public function inGroup($uid, $gid) { return ($gid === self::GroupName); }
     public function getUserGroups($uid) { return array(self::GroupName); }
@@ -25,4 +26,4 @@ class GROUP_EVERY implements \OCP\GroupInterface {
     }
 }
 
-\OC_Group::useBackend(new GROUP_EVERY());
+\OC::$server->getGroupManager()->addBackend(new GROUP_EVERY());
